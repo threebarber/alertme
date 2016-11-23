@@ -8,7 +8,7 @@ import smtplib
 def send_email(user, pwd, recipient, subject, body): #snippet courtesy of david / email sending function
 
     gmail_user = user
-    gmail_pwd = pwd
+    gmail_pwd = pwd      #assign info to params
     FROM = user
     TO = recipient if type(recipient) is list else [recipient]
     SUBJECT = subject
@@ -17,7 +17,7 @@ def send_email(user, pwd, recipient, subject, body): #snippet courtesy of david 
     # Prepare actual message
     message = """From: %s\nTo: %s\nSubject: %s\n\n%s
     """ % (FROM, ", ".join(TO), SUBJECT, TEXT)
-    try:
+    try: #try to send mail except statement
         server = smtplib.SMTP("smtp.gmail.com", 587) #start smtp server on port 587
         server.ehlo()
         server.starttls()
