@@ -49,7 +49,7 @@ def main(): #main function
         page2 = c.get(url) #page to be compared against page1 / the base page
 
         if page1.content == page2.content: #if else statement to check if content of page remained same
-            print "[-]No Change Detected \n"
+            print "[-]No Change Detected @ " +str(url)
         else:
             print '[+]Change Detected \n' #if anything was changed - it sends an email alerting the user
 
