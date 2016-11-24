@@ -4,6 +4,7 @@ import requests
 import smtplib
 
 #by threebones https://github.com/threebarber
+start = timer()
 
 def send_email(user, pwd, recipient, subject, body): #snippet courtesy of david / email sending function
 
@@ -49,9 +50,11 @@ def main(): #main function
         page2 = c.get(url) #page to be compared against page1 / the base page
 
         if page1.content == page2.content: #if else statement to check if content of page remained same
-            print "[-]No Change Detected @ " +str(url)
+            end = timer()
+            print "[-]No Change Detected @ " +str(url)+ "\n[-]Elapsed Time: " +str((end-start))+ " seconds"
         else:
-            print '[+]Change Detected \n' #if anything was changed - it sends an email alerting the user
+            end = timer()
+            print print '[+]Change Detected - \n[+]Elapsed Time: ' +str((end-start))+ " seconds"  #if anything was changed - it sends an email alerting the user
 
             send_email(user, pwd, recipient, subject, body) #send notification email
 
