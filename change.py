@@ -5,6 +5,8 @@ import smtplib
 from timeit import default_timer as timer
 from config import *
 
+print "[+]Starting up monitor on " +url+ " ,notify on change is set to " +str(notify)
+
 start = timer()
 
 def send_email(user, pwd, recipient, subject, body): #snippet courtesy of david / email sending function
@@ -29,7 +31,7 @@ def send_email(user, pwd, recipient, subject, body): #snippet courtesy of david 
     except Exception, e: #else tell user it failed and why (exception e)
         print "[-]Failed to send notification email, " +str(e)
 
-def main(): #main function
+while 1:
     
     with requests.Session() as c:
 
@@ -67,13 +69,7 @@ def main(): #main function
             else:
                 pass
 
-        page2  = None #clear page2 variable before looping through main function again
-
-        #time.sleep(wait_time) optional wait beetween starting again
-
-        main() #super simple easy loop method wow i'm a developer mom
 
 
-if __name__ == "__main__": #start main function
-    main()
+
 
