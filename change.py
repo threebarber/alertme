@@ -31,7 +31,6 @@ def send_email(user, pwd, recipient, subject, body): #snippet courtesy of david 
 
 def main(): #main function
     
-
     with requests.Session() as c:
 
         try:
@@ -53,6 +52,8 @@ def main(): #main function
                 print "[-]No Change Detected @ " +str(url)+ "\n[-]Elapsed Time: " +str(timeMinutes)+ " minutes"
             else:
                 print '[-]No Change Detected @ ' +str(url)+ "\n[+]Elapsed Time: " +str((end-start))+ " seconds"
+            
+
         else:
             end = timer()
             if int((end-start)) >= 60:
@@ -61,8 +62,10 @@ def main(): #main function
             else:
                 print '[+]Change Detected - \n[+]Elapsed Time: ' +str((end-start))+ " seconds"  #if anything was changed - it sends an email alerting the user
 
-            send_email(user, pwd, recipient, subject, body) #send notification email
-
+            if notify == True:
+                send_email(user, pwd, recipient, subject, body) #send notification email
+            else:
+                pass
 
         page2  = None #clear page2 variable before looping through main function again
 
