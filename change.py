@@ -53,9 +53,6 @@ def main(): #main function
                 print "[-]No Change Detected @ " +str(url)+ "\n[-]Elapsed Time: " +str(timeMinutes)+ " minutes"
             else:
                 print '[-]No Change Detected @ ' +str(url)+ "\n[+]Elapsed Time: " +str((end-start))+ " seconds"
-
-            send_email(user, pwd, recipient, subject, body) #send notification email
-
         else:
             end = timer()
             if int((end-start)) >= 60:
