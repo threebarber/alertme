@@ -66,7 +66,7 @@ def main():
                         print '\n[+]Retrieving new base page and restarting\n' 
                         main()
                     else:
-                        print '[+]Change Detected  \n[+]Elapsed Time: ' +str((end-start))+ " seconds \n[+]Retrieving new base page and restarting\n"  #if anything was changed - it sends an email alerting the user
+                        print '[+]Change Detected  \n[+]Elapsed Time: ' +str((end-start))+ " seconds"  #if anything was changed - it sends an email alerting the user
                         if notify == True:
                             send_email(user, pwd, recipient, subject, body) #send notification email
                         else:
