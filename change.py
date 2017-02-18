@@ -5,9 +5,6 @@ import smtplib
 from timeit import default_timer as timer
 from config import *
 
-print "[+]Starting up monitor on " +url+ " ,notify on change is set to " +str(notify)
-
-start = timer()
 
 def send_email(user, pwd, recipient, subject, body): #snippet courtesy of david / email sending function
     gmail_user = user
@@ -30,46 +27,49 @@ def send_email(user, pwd, recipient, subject, body): #snippet courtesy of david 
         print 'successfully sent the mail' #alert user mail was sent
     except Exception, e: #else tell user it failed and why (exception e)
         print "[-]Failed to send notification email, " +str(e)
+def main():
+    print "[+]Starting up monitor on " +url+ ",notify on change detect is set to " +str(notify)
+    start = timer()
 
-while 1:
+    while 1:
+        
+        with requests.Session() as c:
     
-    with requests.Session() as c:
-
-        try:
-            page1 = c.get(url) #base page that will be compared against
-        except Exception, e:
-            print "[-]Error Encountered during initial page retrieval: " +e
-
-        time.sleep(wait_time) #wait inbeetween initial retrieval and comparison actions
-
-        try:
-            page2 = c.get(url) #page to be compared against page1 / the base page
-        except Exception, e:
-            print "[+]Error Encountered during secondary page retrieval: " +e
-
-        if page1.content == page2.content: #if else statement to check if content of page remained same
-            end = timer()
-            if ((end-start)) >= 60:
-                timeMinutes = (end-start) / 60
-                print "[-]No Change Detected @ " +str(url)+ "\n[-]Elapsed Time: " +str(timeMinutes)+ " minutes"
+            try:
+                page1 = c.get(url) #base page that will be compared against
+            except Exception, e:
+                print "[-]Error Encountered during initial page retrieval: " +e
+    
+            time.sleep(wait_time) #wait inbeetween initial retrieval and comparison actions
+    
+            try:
+                page2 = c.get(url) #page to be compared against page1 / the base page
+            except Exception, e:
+                print "[+]Error Encountered during secondary page retrieval: " +e
+    
+            if page1.content == page2.content: #if else statement to check if content of page remained same
+                end = timer()
+                if ((end-start)) >= 60:
+                    timeMinutes = (end-start) / 60
+                    print "[-]No Change Detected @ " +str(url)+ "\n[-]Elapsed Time: " +str(timeMinutes)+ " minutes"
+                else:
+                    print '[-]No Change Detected @ ' +str(url)+ "\n[+]Elapsed Time: " +str((end-start))+ " seconds"
+                
             else:
-                print '[-]No Change Detected @ ' +str(url)+ "\n[+]Elapsed Time: " +str((end-start))+ " seconds"
-            
-
-        else:
-            end = timer()
-            if int((end-start)) >= 60:
-                timeMinutes = (end-start) / 60
-                print '[+]Change Detected - \n[+]Elapsed Time: ' +str(timeMinutes)+ " minutes"  #if anything was changed - it sends an email alerting the user
-            else:
-                print '[+]Change Detected - \n[+]Elapsed Time: ' +str((end-start))+ " seconds"  #if anything was changed - it sends an email alerting the user
-
-            if notify == True:
-                send_email(user, pwd, recipient, subject, body) #send notification email
-            else:
-                pass
-
-
+                end = timer()
+                if int((end-start)) >= 60:
+                    timeMinutes = (end-start) / 60
+                    print '[+]Change Detected - \n[+]Elapsed Time: ' +str(timeMinutes)+ " minutes"  #if anything was changed - it sends an email alerting the user
+                else:
+                    print '[+]Change Detected - \n[+]Elapsed Time: ' +str((end-start))+ " seconds"  #if anything was changed - it sends an email alerting the user
+    
+                if notify == True:
+                    send_email(user, pwd, recipient, subject, body) #send notification email
+                else:
+                    pass
+    
+if __name__ == '__main__':
+    main()
 
 
 
