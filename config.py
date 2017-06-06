@@ -1,5 +1,5 @@
 #-----------------------------------------BASICS-------------------------------------
-url                 = 'https://pastebin.com/' # url to monitor
+url                 = 'http://127.0.0.1' # url to monitor
 wait_time           =  10 #customizable time to wait to check for changes IE every 20 secs
 
 
