@@ -1,7 +1,8 @@
 # alertme
-Script to monitor  for changes in websites and send an email and/or tweet when one is detected
+Script to monitor  for changes in websites and send an email and/or tweet and/or text when one is detected
 
 requires requests (python -m pip install requests)
+requires twillion (python -m pip install twilio)
 
 uses python 2 (cry about it - if it really means that much to you someone fork it and add parentheses to the print statements)
 
@@ -9,4 +10,9 @@ note:it was made to work universally so of course it will not work on every site
 
 ****************************************************************
 NEW: TWEET MODULE CAN ALSO SEND A TWEET ONCE A CHANGE IS DETECTED
+****************************************************************
+
+
+****************************************************************
+NEW: SMS MODULE CAN ALSO SEND A TEXT ONCE A CHANGE IS DETECTED
 ****************************************************************
