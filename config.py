@@ -1,5 +1,5 @@
 #-----------------------------------------BASICS-------------------------------------
-url                 = 'http://127.0.0.1' # url to monitor
+url                 = 'https://pastebin.com/' # url to monitor
 wait_time           =  10 #customizable time to wait to check for changes IE every 20 secs
 
 
@@ -20,7 +20,18 @@ consumer_key        = ''
 consumer_secret     = ''
 access_token        = ''
 access_token_secret = ''
- 
+
+
+ #---------------------------------SMS SECTION------------------------------------------
+#https://www.twilio.com/console/account/settings
+
+text                 = True #True to send text, false to not
+
+accountSID          = ''
+authToken           = ''
+myNumber            = '' #number to send text messages to
+twilioNumber        = '' #twillio phone number
+
  
  
 '''

@@ -5,6 +5,7 @@ import smtplib
 from config import *
 import tweepy
 from datetime import datetime
+from twilio.rest import Client
 
 def send_email(user, pwd, recipient): #snippet courtesy of david / email sending function
     SUBJECT             = 'SITE UPDATED' #message subject
@@ -38,8 +39,16 @@ def sendtweet(consumer_key, consumer_secret,access_token, access_token_secret,st
     except tweepy.error.TweepError:
         print "[-]Error, invalid or expired twitter tokens, visit http://apps.twitter.com to retrieve or refresh them"
 
+def sendtext(message):
+    print "[+]Sending text message...."
+    try:
+        twilioCli = Client(accountSID, authToken)
+        twilioCli.messages.create(body=message, from_=twilioNumber, to=myNumber)
+    except Exception, e:
+        print "[-]Error " +e
+
 def main():
-        print "[+]Starting up monitor on " +url+ ",notify on change detect is set to " +str(notify)
+        print "[+]Starting up monitor on " +url+ ",email on change detect is set to " +str(notify)+ ", tweeting is set to "+str(tweet)+", and text on change is set to "+str(text)
 
         with requests.Session() as c:
             try:
@@ -58,6 +67,7 @@ def main():
                         print '[-]No Change Detected on ' +str(url)+ "\n" +str(datetime.now())
                     else:
                         status_string = 'Change Detected at ' +str(url)+ "\n" +str(datetime.now())
+                        message = status_string
                         print "[+]"+status_string
                         if notify == True:
                             send_email(user, pwd, recipient) #send notification email
@@ -67,6 +77,8 @@ def main():
                             sendtweet(consumer_key, consumer_secret,access_token, access_token_secret,status_string)
                         else:
                             pass
+                        if text == True:
+                            sendtext(message)
                         print '\n[+]Retrieving new base page and restarting\n'
                         main()
 if __name__ == '__main__':
