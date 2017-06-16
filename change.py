@@ -52,7 +52,7 @@ def main():
 
         with requests.Session() as c:
             try:
-                page1 = c.get(url) #base page that will be compared against
+                page1 = c.get(url,headers={'User-Agent':"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36"}) #base page that will be compared against
             except Exception, e:
                 print "[-]Error Encountered during initial page retrieval: " +e
              
