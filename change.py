@@ -48,21 +48,24 @@ def sendtext(message):
         print "[-]Error " +e
 
 def main():
-        print "[+]Starting up monitor on " +url+ ",email on change detect is set to " +str(notify)+ ", tweeting is set to "+str(tweet)+", and text on change is set to "+str(text)
+        print "[+]Starting up monitor on " +url
+        print "[+]Email on change detect is set to " +str(notify)
+        print "[+]Tweeting is set to "+str(tweet)
+        print "[+]Text notifications set to "+str(text)
 
         with requests.Session() as c:
             try:
                 page1 = c.get(url,headers={'User-Agent':"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36"}) #base page that will be compared against
             except Exception, e:
                 print "[-]Error Encountered during initial page retrieval: " +e
-             
+
             while 1:
                     time.sleep(wait_time) #wait beetween comparisons
                     try:
                         page2 = c.get(url, headers={'User-Agent':"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36"}) #page to be compared against page1 / the base page
                     except Exception, e:
                         print "[+]Error Encountered during comparison page retrieval: " +e
-            
+
                     if page1.content == page2.content: #if else statement to check if content of page remained same
                         print '[-]No Change Detected on ' +str(url)+ "\n" +str(datetime.now())
                     else:
@@ -83,6 +86,3 @@ def main():
                         main()
 if __name__ == '__main__':
     main()
-
-
-
