@@ -2,7 +2,7 @@
 Script to monitor  for changes in websites and send an email and/or tweet and/or text when one is detected
 
 requires requests (python -m pip install requests)
-requires twillion (python -m pip install twilio)
+requires twilio (python -m pip install twilio)
 
 uses python 2 (cry about it - if it really means that much to you someone fork it and add parentheses to the print statements)
 
